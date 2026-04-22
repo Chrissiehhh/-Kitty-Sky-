@@ -19,6 +19,7 @@ class Pickup : public Entity
 			MissileRefill,
 			FireSpread,
 			FireRate,
+			BombCrate,
 			TypeCount
 		};
 

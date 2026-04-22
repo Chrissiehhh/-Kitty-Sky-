@@ -29,26 +29,42 @@ namespace
 Character::Character(Type type, const TextureHolder& textures, const FontHolder& fonts, State::Difficulty difficulty)
 : Entity(Table[type].hitpoints)
 , mType(type)
-, mSprite(textures.get(Table[type].texture), Table[type].textureRect)
+, mSprite()
 , mExplosion(textures.get(Textures::Explosion))
 , mFireCommand()
 , mMissileCommand()
+, mBombCommand()
 , mFireCountdown(sf::Time::Zero)
 , mIsFiring(false)
 , mIsLaunchingMissile(false)
+, mIsLaunchingBomb(false)
 , mShowExplosion(true)
 , mExplosionBegan(false)
 , mSpawnedPickup(false)
-, mFireRateLevel(1)
-, mSpreadLevel(1)
+, mFireRateLevel(mType == PineappleBoss ? 2 : 1)
+, mSpreadLevel(mType == PineappleBoss ? 3 : 1)
 , mMissileAmmo(2)
+, mBombAmmo(mType == HelloKitty ? (difficulty == State::Simple ? 2 : 1) : 0)
 , mDropPickupCommand()
 , mTravelledDistance(0.f)
 , mDirectionIndex(0)
+, mHealthDisplay(nullptr)
 , mMissileDisplay(nullptr)
-, mProjectileSpeedFactor((mType == HelloKitty) ? 1.f : (difficulty == State::Simple ? 0.7f : 1.f))
+, mBombDisplay(nullptr)
+, mDifficultyLevel(difficulty)
+, mProjectileSpeedFactor((mType == HelloKitty) ? 1.f : (mType == PineappleBoss ? 1.15f : (difficulty == State::Simple ? 0.7f : 1.f)))
 , mIdentifier(0)
 {
+	sf::IntRect textureRect = Table[type].textureRect;
+	if (textureRect.width == 0 || textureRect.height == 0)
+	{
+		sf::Vector2u textureSize = textures.get(Table[type].texture).getSize();
+		textureRect = sf::IntRect(0, 0, static_cast<int>(textureSize.x), static_cast<int>(textureSize.y));
+	}
+
+	mSprite.setTexture(textures.get(Table[type].texture));
+	mSprite.setTextureRect(textureRect);
+
 	mExplosion.setFrameSize(sf::Vector2i(256, 256));
 	mExplosion.setNumFrames(16);
 	mExplosion.setDuration(sf::seconds(1));
@@ -59,6 +75,8 @@ Character::Character(Type type, const TextureHolder& textures, const FontHolder&
 
 	if (mType == HelloKitty)
 		mSprite.setScale(2.f, 2.f);
+	else if (mType == PineappleBoss)
+		mSprite.setScale(0.6f, 0.6f);
 	else
 		mSprite.setScale(1.5f, 1.5f);
 
@@ -72,6 +90,12 @@ Character::Character(Type type, const TextureHolder& textures, const FontHolder&
 	mMissileCommand.action   = [this, &textures] (SceneNode& node, sf::Time)
 	{
 		createProjectile(node, Projectile::Missile, 0.f, 0.5f, textures);
+	};
+
+	mBombCommand.category = Category::SceneAirLayer;
+	mBombCommand.action = [this, &textures] (SceneNode& node, sf::Time)
+	{
+		createProjectile(node, Projectile::Bomb, 0.f, 0.2f, textures);
 	};
 
 	mDropPickupCommand.category = Category::SceneAirLayer;
@@ -90,6 +114,11 @@ Character::Character(Type type, const TextureHolder& textures, const FontHolder&
 		missileDisplay->setPosition(0, 92);
 		mMissileDisplay = missileDisplay.get();
 		attachChild(std::move(missileDisplay));
+
+		std::unique_ptr<TextNode> bombDisplay(new TextNode(fonts, ""));
+		bombDisplay->setPosition(0, 118);
+		mBombDisplay = bombDisplay.get();
+		attachChild(std::move(bombDisplay));
 	}
 
 	updateTexts();
@@ -174,6 +203,11 @@ bool Character::isHelloKitty() const
 	return mType == HelloKitty;
 }
 
+bool Character::isBoss() const
+{
+	return mType == PineappleBoss;
+}
+
 float Character::getMaxSpeed() const
 {
 	return Table[mType].speed;
@@ -196,6 +230,11 @@ void Character::collectMissiles(unsigned int count)
 	mMissileAmmo += count;
 }
 
+void Character::collectBombs(unsigned int count)
+{
+	mBombAmmo += count;
+}
+
 void Character::fire()
 {
 	// Only ships with fire interval != 0 are able to fire
@@ -209,6 +248,15 @@ void Character::launchMissile()
 	{
 		mIsLaunchingMissile = true;
 		--mMissileAmmo;
+	}
+}
+
+void Character::launchBomb()
+{
+	if (isHelloKitty() && mBombAmmo > 0)
+	{
+		mIsLaunchingBomb = true;
+		--mBombAmmo;
 	}
 }
 
@@ -237,6 +285,11 @@ void Character::setIdentifier(int identifier)
 	mIdentifier = identifier;
 }
 
+int Character::getBombAmmo() const
+{
+	return mBombAmmo;
+}
+
 void Character::updateMovementPattern(sf::Time dt)
 {
 	// Fruit movement pattern
@@ -263,9 +316,14 @@ void Character::updateMovementPattern(sf::Time dt)
 
 void Character::checkPickupDrop(CommandQueue& commands)
 {
-	// Fruit enemies drop at most one pickup, with a 50% chance
-	if (!isHelloKitty() && randomInt(2) == 0 && !mSpawnedPickup)
-		commands.push(mDropPickupCommand);
+	if (!isHelloKitty() && !mSpawnedPickup)
+	{
+		const bool shouldDrop = (mType == PineappleBoss)
+			|| (mDifficultyLevel == State::Simple && randomInt(10) < 6)
+			|| (mDifficultyLevel == State::Hard && randomInt(3) == 0);
+		if (shouldDrop)
+			commands.push(mDropPickupCommand);
+	}
 
 	mSpawnedPickup = true;
 }
@@ -300,6 +358,14 @@ void Character::checkProjectileLaunch(sf::Time dt, CommandQueue& commands)
 		playLocalSound(commands, SoundEffect::LaunchMissile);
 
 		mIsLaunchingMissile = false;
+	}
+
+	if (mIsLaunchingBomb)
+	{
+		commands.push(mBombCommand);
+		playLocalSound(commands, SoundEffect::LaunchMissile);
+
+		mIsLaunchingBomb = false;
 	}
 }
 
@@ -341,7 +407,9 @@ void Character::createProjectile(SceneNode& node, Projectile::Type type, float x
 
 void Character::createPickup(SceneNode& node, const TextureHolder& textures) const
 {
-	auto type = static_cast<Pickup::Type>(randomInt(Pickup::TypeCount));
+	Pickup::Type type = (mType == PineappleBoss)
+		? Pickup::BombCrate
+		: static_cast<Pickup::Type>(randomInt(Pickup::TypeCount));
 
 	std::unique_ptr<Pickup> pickup(new Pickup(type, textures));
 	pickup->setPosition(getWorldPosition());
@@ -366,6 +434,14 @@ void Character::updateTexts()
 			mMissileDisplay->setString("");
 		else
 			mMissileDisplay->setString("M: " + toString(mMissileAmmo));
+	}
+
+	if (mBombDisplay)
+	{
+		if (mBombAmmo == 0 || isDestroyed())
+			mBombDisplay->setString("");
+		else
+			mBombDisplay->setString("B: " + toString(mBombAmmo));
 	}
 }
 

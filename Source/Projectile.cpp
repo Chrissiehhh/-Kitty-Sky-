@@ -1,4 +1,6 @@
 #include <Book/Projectile.hpp>
+#include <Book/Character.hpp>
+#include <Book/CommandQueue.hpp>
 #include <Book/EmitterNode.hpp>
 #include <Book/DataTables.hpp>
 #include <Book/Utility.hpp>
@@ -6,6 +8,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 #include <cmath>
 #include <cassert>
@@ -19,9 +22,20 @@ namespace
 Projectile::Projectile(Type type, const TextureHolder& textures)
 : Entity(1)
 , mType(type)
-, mSprite(textures.get(Table[type].texture), Table[type].textureRect)
+, mSprite()
+, mLifetime(sf::Time::Zero)
+, mHasTriggeredBombAttack(false)
 , mTargetDirection()
 {
+	sf::IntRect textureRect = Table[type].textureRect;
+	if (textureRect.width == 0 || textureRect.height == 0)
+	{
+		sf::Vector2u textureSize = textures.get(Table[type].texture).getSize();
+		textureRect = sf::IntRect(0, 0, static_cast<int>(textureSize.x), static_cast<int>(textureSize.y));
+	}
+
+	mSprite.setTexture(textures.get(Table[type].texture));
+	mSprite.setTextureRect(textureRect);
 	centerOrigin(mSprite);
 
 	// Add particle system for missiles
@@ -36,6 +50,10 @@ Projectile::Projectile(Type type, const TextureHolder& textures)
 		attachChild(std::move(propellant));
 
 	}
+	else if (isBomb())
+	{
+		mSprite.setScale(0.28f, 0.28f);
+	}
 }
 
 void Projectile::guideTowards(sf::Vector2f position)
@@ -49,8 +67,15 @@ bool Projectile::isGuided() const
 	return mType == Missile;
 }
 
+bool Projectile::isBomb() const
+{
+	return mType == Bomb;
+}
+
 void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
+	mLifetime += dt;
+
 	if (isGuided())
 	{
 		const float approachRate = 200.f;
@@ -61,6 +86,38 @@ void Projectile::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 		setRotation(toDegree(angle) + 90.f);
 		setVelocity(newVelocity);
+	}
+	else if (isBomb())
+	{
+		rotate(260.f * dt.asSeconds());
+
+		if (!mHasTriggeredBombAttack)
+		{
+			Command bombSweep;
+			bombSweep.category = Category::Fruit;
+			bombSweep.action = derivedAction<Character>([this] (Character& enemy, sf::Time)
+			{
+				if (enemy.isDestroyed())
+					return;
+
+				const float blastRadius = 1050.f;
+				if (length(enemy.getWorldPosition() - getWorldPosition()) > blastRadius)
+					return;
+
+				if (enemy.isBoss())
+				{
+					int remainingAfterBlast = std::max(1, enemy.getHitpoints() / 2);
+					enemy.setHitpoints(remainingAfterBlast);
+				}
+				else
+				{
+					enemy.destroy();
+				}
+			});
+
+			commands.push(bombSweep);
+			mHasTriggeredBombAttack = true;
+		}
 	}
 
 	Entity::updateCurrent(dt, commands);

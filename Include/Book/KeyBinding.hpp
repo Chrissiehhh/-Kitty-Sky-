@@ -17,6 +17,7 @@ namespace PlayerAction
 		MoveDown,
 		Fire,
 		LaunchMissile,
+		LaunchBomb,
 		Count
 	};
 }

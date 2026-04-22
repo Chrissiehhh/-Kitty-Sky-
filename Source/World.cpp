@@ -172,6 +172,8 @@ bool World::hasPlayerReachedEnd() const
 void World::loadTextures()
 {
 	mTextures.load(Textures::Entities, "Media/Textures/Entities.png");
+	mTextures.load(Textures::PineappleBoss, "Media/Textures/PineappleBoss.png");
+	mTextures.load(Textures::BombPickup, "Media/Textures/BombPickup.png");
 	mTextures.load(Textures::Jungle, "Media/Textures/Jungle.png");
 	mTextures.load(Textures::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(Textures::Particle, "Media/Textures/Particle.png");
@@ -261,13 +263,20 @@ void World::handleCollisions()
 
 		else if (matchesCategories(pair, Category::Fruit, Category::HelloKittyProjectile)
 			  || matchesCategories(pair, Category::HelloKitty, Category::FruitProjectile))
-	{
+		{
 			auto& character = static_cast<Character&>(*pair.first);
 			auto& projectile = static_cast<Projectile&>(*pair.second);
 
-			// Apply projectile damage to character, destroy projectile
-			character.damage(projectile.getDamage());
-			projectile.destroy();
+			if (projectile.isBomb())
+			{
+				projectile.destroy();
+			}
+			else
+			{
+				// Apply projectile damage to character, destroy projectile
+				character.damage(projectile.getDamage());
+				projectile.destroy();
+			}
 		}
 	}
 }
@@ -366,29 +375,62 @@ void World::addFruits()
 
 	if (mDifficulty == State::Simple)
 	{
-		addWave(Character::Apple,   600.f, { 0.f });
-		addWave(Character::Banana,  1150.f, { leftMid, rightMid });
-		addWave(Character::Apple,   1750.f, { 0.f });
-		addWave(Character::Banana,  2350.f, { leftMid, rightMid });
-		addWave(Character::Apple,   3050.f, { leftLane, 0.f, rightLane });
-		addWave(Character::Banana,  3850.f, { 0.f, rightMid });
+		addFruit(Character::Apple,   -80.f,  520.f);
+		addFruit(Character::Banana,  130.f,  760.f);
+		addFruit(Character::Apple,  -220.f,  980.f);
+		addFruit(Character::Banana,   40.f, 1120.f);
+		addFruit(Character::Apple,   230.f, 1360.f);
+		addFruit(Character::Banana, -150.f, 1570.f);
+		addFruit(Character::Apple,   100.f, 1840.f);
+		addFruit(Character::Banana, -260.f, 2050.f);
+		addFruit(Character::Apple,   260.f, 2320.f);
+		addFruit(Character::Banana,  -20.f, 2560.f);
+		addFruit(Character::Apple,  -190.f, 2830.f);
+		addFruit(Character::Banana,  180.f, 3070.f);
+		addFruit(Character::Apple,    30.f, 3330.f);
+		addFruit(Character::Banana, -120.f, 3590.f);
+		addFruit(Character::Apple,   240.f, 3870.f);
+		addFruit(Character::Banana, -230.f, 4140.f);
+		addWave(Character::PineappleBoss, 4550.f, { 0.f });
 	}
 	else
 	{
-		addWave(Character::Apple,   500.f, { 0.f });
-		addWave(Character::Apple,   850.f, { leftMid, rightMid });
-		addWave(Character::Banana, 1100.f, { 0.f });
-		addWave(Character::Banana, 1350.f, { leftMid, rightMid });
-		addWave(Character::Apple,  1600.f, { leftLane, 0.f, rightLane });
-		addWave(Character::Banana, 1850.f, { leftLane, 0.f, rightLane });
-		addWave(Character::Apple,  2150.f, { leftLane, leftMid, rightMid, rightLane });
-		addWave(Character::Banana, 2450.f, { leftLane, leftMid, rightMid, rightLane });
-		addWave(Character::Apple,  2750.f, { leftMid, rightMid });
-		addWave(Character::Banana, 3050.f, { 0.f, rightMid });
-		addWave(Character::Apple,  3350.f, { leftLane, 0.f, rightLane });
-		addWave(Character::Banana, 3650.f, { leftLane, leftMid, rightMid, rightLane });
-		addWave(Character::Apple,  3950.f, { leftLane, leftMid, rightMid, rightLane });
-		addWave(Character::Banana, 4250.f, { leftLane, leftMid, rightMid, rightLane });
+		// Hard mode ramps up over time: lighter mixed entries first, denser crossfire later.
+		addFruit(Character::Apple,     0.f,  500.f);
+		addFruit(Character::Banana, -140.f,  760.f);
+		addFruit(Character::Apple,   160.f,  930.f);
+		addFruit(Character::Apple,  -220.f, 1140.f);
+		addFruit(Character::Banana,   60.f, 1280.f);
+		addFruit(Character::Apple,   240.f, 1460.f);
+
+		addFruit(Character::Banana, -260.f, 1680.f);
+		addFruit(Character::Apple,   -20.f, 1810.f);
+		addFruit(Character::Banana,  210.f, 1940.f);
+		addFruit(Character::Apple,  -170.f, 2140.f);
+		addFruit(Character::Banana,   90.f, 2260.f);
+		addFruit(Character::Apple,   280.f, 2390.f);
+		addFruit(Character::Banana, -300.f, 2520.f);
+
+		addFruit(Character::Apple,  -240.f, 2740.f);
+		addFruit(Character::Banana,  -40.f, 2810.f);
+		addFruit(Character::Apple,   180.f, 2890.f);
+		addFruit(Character::Banana,  310.f, 3010.f);
+		addFruit(Character::Apple,  -120.f, 3140.f);
+		addFruit(Character::Banana,  110.f, 3230.f);
+		addFruit(Character::Apple,  -300.f, 3360.f);
+		addFruit(Character::Banana,   10.f, 3440.f);
+
+		addFruit(Character::Apple,   260.f, 3600.f);
+		addFruit(Character::Banana, -210.f, 3660.f);
+		addFruit(Character::Apple,    40.f, 3730.f);
+		addFruit(Character::Banana,  300.f, 3810.f);
+		addFruit(Character::Apple,  -320.f, 3890.f);
+		addFruit(Character::Banana, -100.f, 3970.f);
+		addFruit(Character::Apple,   140.f, 4040.f);
+		addFruit(Character::Banana,  -30.f, 4120.f);
+		addFruit(Character::Apple,   230.f, 4200.f);
+		addFruit(Character::Banana, -260.f, 4280.f);
+		addWave(Character::PineappleBoss, 4700.f, { -220.f, 220.f });
 	}
 
 	sortFruits();
@@ -405,12 +447,6 @@ void World::sortFruits()
 
 void World::addFruit(Character::Type type, float relX, float relY)
 {
-	if (mDifficulty == State::Simple && (mFruitSpawnIndex % 3 == 2))
-	{
-		++mFruitSpawnIndex;
-		return;
-	}
-
 	++mFruitSpawnIndex;
 	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
 	mFruitSpawnPoints.push_back(spawn);

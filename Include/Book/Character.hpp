@@ -20,6 +20,7 @@ class Character : public Entity
 			HelloKitty,
 			Apple,
 			Banana,
+			PineappleBoss,
 			TypeCount
 		};
 
@@ -32,19 +33,23 @@ class Character : public Entity
 		virtual void			remove();
 		virtual bool 			isMarkedForRemoval() const;
 		bool					isHelloKitty() const;
+		bool					isBoss() const;
 		float					getMaxSpeed() const;
 
 		void					increaseFireRate();
 		void					increaseSpread();
 		void					collectMissiles(unsigned int count);
+		void					collectBombs(unsigned int count);
 
 		void 					fire();
 		void					launchMissile();
+		void					launchBomb();
 		void					playLocalSound(CommandQueue& commands, SoundEffect::ID effect);
 		int						getIdentifier();
 		void					setIdentifier(int identifier);
 		int						getMissileAmmo() const;
 		void					setMissileAmmo(int ammo);
+		int						getBombAmmo() const;
 
 
 	private:
@@ -68,9 +73,11 @@ class Character : public Entity
 		Animation				mExplosion;
 		Command 				mFireCommand;
 		Command					mMissileCommand;
+		Command					mBombCommand;
 		sf::Time				mFireCountdown;
 		bool 					mIsFiring;
 		bool					mIsLaunchingMissile;
+		bool					mIsLaunchingBomb;
 		bool 					mShowExplosion;
 		bool					mExplosionBegan;
 		bool					mSpawnedPickup;
@@ -78,12 +85,15 @@ class Character : public Entity
 		int						mFireRateLevel;
 		int						mSpreadLevel;
 		int						mMissileAmmo;
+		int						mBombAmmo;
 
 		Command 				mDropPickupCommand;
 		float					mTravelledDistance;
 		std::size_t				mDirectionIndex;
 		TextNode*				mHealthDisplay;
 		TextNode*				mMissileDisplay;
+		TextNode*				mBombDisplay;
+		State::Difficulty		mDifficultyLevel;
 		float					mProjectileSpeedFactor;
 	
 		int						mIdentifier;

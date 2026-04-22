@@ -6,6 +6,7 @@
 #include <Book/ResourceHolder.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 
 namespace
@@ -16,9 +17,21 @@ namespace
 Pickup::Pickup(Type type, const TextureHolder& textures)
 : Entity(1)
 , mType(type)
-, mSprite(textures.get(Table[type].texture), Table[type].textureRect)
+, mSprite()
 {
+	sf::IntRect textureRect = Table[type].textureRect;
+	if (textureRect.width == 0 || textureRect.height == 0)
+	{
+		sf::Vector2u textureSize = textures.get(Table[type].texture).getSize();
+		textureRect = sf::IntRect(0, 0, static_cast<int>(textureSize.x), static_cast<int>(textureSize.y));
+	}
+
+	mSprite.setTexture(textures.get(Table[type].texture));
+	mSprite.setTextureRect(textureRect);
 	centerOrigin(mSprite);
+
+	if (mType == BombCrate)
+		mSprite.setScale(0.35f, 0.35f);
 }
 
 unsigned int Pickup::getCategory() const

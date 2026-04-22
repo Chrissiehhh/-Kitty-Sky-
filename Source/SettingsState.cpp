@@ -49,6 +49,7 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 		addButtonLabel(PlayerAction::MoveDown,		x, 3, "Move Down", context);
 		addButtonLabel(PlayerAction::Fire,			x, 4, "Fire", context);
 		addButtonLabel(PlayerAction::LaunchMissile,	x, 5, "Missile", context);
+		addButtonLabel(PlayerAction::LaunchBomb,	x, 6, "Bomb", context);
 	}
 
 	updateDifficultyLabel();

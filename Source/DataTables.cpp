@@ -41,6 +41,16 @@ std::vector<CharacterData> initializeCharacterData()
 	data[Character::Banana].fireInterval = sf::seconds(2);
 	data[Character::Banana].hasRollAnimation = false;
 
+	data[Character::PineappleBoss].hitpoints = 500;
+	data[Character::PineappleBoss].speed = 85.f;
+	data[Character::PineappleBoss].texture = Textures::PineappleBoss;
+	data[Character::PineappleBoss].textureRect = sf::IntRect();
+	data[Character::PineappleBoss].directions.push_back(Direction(+75.f, 220.f));
+	data[Character::PineappleBoss].directions.push_back(Direction(-75.f, 440.f));
+	data[Character::PineappleBoss].directions.push_back(Direction(+75.f, 220.f));
+	data[Character::PineappleBoss].fireInterval = sf::seconds(1.2f);
+	data[Character::PineappleBoss].hasRollAnimation = false;
+
 	return data;
 }
 
@@ -62,6 +72,11 @@ std::vector<ProjectileData> initializeProjectileData()
 	data[Projectile::Missile].speed = 150.f;
 	data[Projectile::Missile].texture = Textures::Entities;
 	data[Projectile::Missile].textureRect = sf::IntRect(44, 71, 25, 24);
+
+	data[Projectile::Bomb].damage = 260;
+	data[Projectile::Bomb].speed = 220.f;
+	data[Projectile::Bomb].texture = Textures::BombPickup;
+	data[Projectile::Bomb].textureRect = sf::IntRect();
 
 	return data;
 }
@@ -85,6 +100,14 @@ std::vector<PickupData> initializePickupData()
 	data[Pickup::FireRate].texture = Textures::Entities;
 	data[Pickup::FireRate].textureRect = sf::IntRect(126, 69, 23, 25);
 	data[Pickup::FireRate].action = std::bind(&Character::increaseFireRate, _1);
+
+	data[Pickup::BombCrate].texture = Textures::BombPickup;
+	data[Pickup::BombCrate].textureRect = sf::IntRect();
+	data[Pickup::BombCrate].action = [] (Character& a)
+	{
+		a.collectBombs(1);
+		a.repair(15);
+	};
 
 	return data;
 }

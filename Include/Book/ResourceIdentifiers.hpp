@@ -16,6 +16,8 @@ namespace Textures
 	enum ID
 	{
 		Entities,
+		PineappleBoss,
+		BombPickup,
 		Jungle,
 		TitleScreen,
 		Buttons,

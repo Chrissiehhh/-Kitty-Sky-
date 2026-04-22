@@ -5,6 +5,7 @@
 #include <Book/ResourceIdentifiers.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Time.hpp>
 
 
 class Projectile : public Entity
@@ -15,6 +16,7 @@ class Projectile : public Entity
 			HelloKittyBullet,
 			FruitBullet,
 			Missile,
+			Bomb,
 			TypeCount
 		};
 
@@ -24,6 +26,7 @@ class Projectile : public Entity
 
 		void					guideTowards(sf::Vector2f position);
 		bool					isGuided() const;
+		bool					isBomb() const;
 
 		virtual unsigned int	getCategory() const;
 		virtual sf::FloatRect	getBoundingRect() const;
@@ -39,6 +42,8 @@ class Projectile : public Entity
 	private:
 		Type					mType;
 		sf::Sprite				mSprite;
+		sf::Time				mLifetime;
+		bool					mHasTriggeredBombAttack;
 		sf::Vector2f			mTargetDirection;
 };
 

@@ -57,6 +57,22 @@ struct CharacterMissileTrigger
 	int characterID;
 };
 
+struct CharacterBombTrigger
+{
+	CharacterBombTrigger(int identifier)
+	: characterID(identifier)
+	{
+	}
+
+	void operator() (Character& character, sf::Time) const
+	{
+		if (character.getIdentifier() == characterID)
+			character.launchBomb();
+	}
+
+	int characterID;
+};
+
 
 Player::Player(sf::Int32 identifier, const KeyBinding* binding)
 : mKeyBinding(binding)
@@ -109,4 +125,5 @@ void Player::initializeActions()
 	mActionBinding[PlayerAction::MoveDown].action      = derivedAction<Character>(CharacterMover( 0, +1, mIdentifier));
 	mActionBinding[PlayerAction::Fire].action          = derivedAction<Character>(CharacterFireTrigger(mIdentifier));
 	mActionBinding[PlayerAction::LaunchMissile].action = derivedAction<Character>(CharacterMissileTrigger(mIdentifier));
+	mActionBinding[PlayerAction::LaunchBomb].action    = derivedAction<Character>(CharacterBombTrigger(mIdentifier));
 }
