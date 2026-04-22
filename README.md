@@ -18,3 +18,24 @@ Example:
 cmake -S . -B build -DSFML_ROOT="C:/Path/To/SFML"
 cmake --build build --config Release
 ```
+
+## Controls
+
+Player 1:
+
+- Arrow keys: move
+- Space: fire
+- M: launch missile
+
+Player 2:
+
+- W/A/S/D: move
+- F: fire
+- R: launch missile
+
+## Features
+
+- Title screen, menu, settings, pause, and game-over states
+- Vertical-scrolling stages with fruit enemies
+- Pickups for health, missiles, fire spread, and fire rate
+- Guided missiles and bloom/sound effects
