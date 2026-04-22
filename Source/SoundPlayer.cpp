@@ -19,13 +19,13 @@ SoundPlayer::SoundPlayer()
 : mSoundBuffers()
 , mSounds()
 {
-	mSoundBuffers.load(SoundEffect::HelloKittyGunfire,	"Media/Sound/AlliedGunfire.wav");
-	mSoundBuffers.load(SoundEffect::FruitGunfire,	"Media/Sound/EnemyGunfire.wav");
-	mSoundBuffers.load(SoundEffect::Explosion1,		"Media/Sound/Explosion1.wav");
-	mSoundBuffers.load(SoundEffect::Explosion2,		"Media/Sound/Explosion2.wav");
-	mSoundBuffers.load(SoundEffect::LaunchMissile,	"Media/Sound/LaunchMissile.wav");
-	mSoundBuffers.load(SoundEffect::CollectPickup,	"Media/Sound/CollectPickup.wav");
-	mSoundBuffers.load(SoundEffect::Button,			"Media/Sound/Button.wav");
+	mSoundBuffers.load(SoundEffect::HelloKittyGunfire,	"Media/Sound/CuteAlliedGunfire.wav");
+	mSoundBuffers.load(SoundEffect::FruitGunfire,	"Media/Sound/CuteEnemyGunfire.wav");
+	mSoundBuffers.load(SoundEffect::Explosion1,		"Media/Sound/CuteExplosion1.wav");
+	mSoundBuffers.load(SoundEffect::Explosion2,		"Media/Sound/CuteExplosion2.wav");
+	mSoundBuffers.load(SoundEffect::LaunchMissile,	"Media/Sound/CuteLaunch.wav");
+	mSoundBuffers.load(SoundEffect::CollectPickup,	"Media/Sound/CuteCollectPickup.wav");
+	mSoundBuffers.load(SoundEffect::Button,			"Media/Sound/CuteButton.wav");
 
 	// Listener points towards the screen (default in SFML)
 	sf::Listener::setDirection(0.f, 0.f, -1.f);
