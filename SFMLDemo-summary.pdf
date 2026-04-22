@@ -1,0 +1,176 @@
+%PDF-1.4
+% Codex generated
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2568 >>
+stream
+BT
+/F2 18 Tf
+1 0 0 1 72 760 Tm
+(SFML Demo) Tj
+ET
+BT
+/F2 12 Tf
+1 0 0 1 72 726 Tm
+(What it is) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 708 Tm
+(Arcade shooter demo with a scrolling battlefield, fruit enemies, pickups,) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 694 Tm
+(and mission success/failure states.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 680 Tm
+(No standalone README was found; the description is inferred from the source.) Tj
+ET
+BT
+/F2 12 Tf
+1 0 0 1 72 660 Tm
+(Who it is for) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 642 Tm
+(Primary persona: a player or tester of a lightweight SFML game prototype.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 628 Tm
+(Not found in repo: a documented audience or product brief.) Tj
+ET
+BT
+/F2 12 Tf
+1 0 0 1 72 608 Tm
+(What it does) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 590 Tm
+(- Title, menu, settings, pause, game over, and mission success states.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 576 Tm
+(- Simple/Hard difficulty selection.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 562 Tm
+(- Two keybinding profiles can be rebound in Settings.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 548 Tm
+(- Scrolling battlefield with layered scene graph and world bounds.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 534 Tm
+(- Enemy fruit spawn points that activate as the view advances.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 520 Tm
+(- Player fire, guided missiles, pickups, collision damage, music, and sounds.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 506 Tm
+(- Bloom/post-processing when supported by the GPU.) Tj
+ET
+BT
+/F2 12 Tf
+1 0 0 1 72 486 Tm
+(How it works) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 468 Tm
+(- Main.cpp creates Application.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 454 Tm
+(- Application owns the window, resources, audio, difficulty, keys, and StateStack.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 440 Tm
+(- StateStack routes input, update, and draw across active states.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 426 Tm
+(- GameState owns World and Player, forwards commands, and checks win/lose.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 412 Tm
+(- World manages the scene graph, spawn points, collisions, missile guidance, and audio.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 84 398 Tm
+(- Supporting pieces: SceneNode/Entity/CommandQueue, GUI widgets, resource holders.) Tj
+ET
+BT
+/F2 12 Tf
+1 0 0 1 72 378 Tm
+(How to run) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 360 Tm
+(1. Install SFML 2.x.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 346 Tm
+(2. Configure from the repo root with CMake; set -DSFML_ROOT=... if needed.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 332 Tm
+(3. Build the SFMLDemo target.) Tj
+ET
+BT
+/F1 10 Tf
+1 0 0 1 72 318 Tm
+(4. Run build\\\\Source\\\\Release\\\\SFMLDemo.exe or the equivalent config output.) Tj
+ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000027 00000 n 
+0000000076 00000 n 
+0000000133 00000 n 
+0000000269 00000 n 
+0000000339 00000 n 
+0000000414 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3033
+%%EOF
