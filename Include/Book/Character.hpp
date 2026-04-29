@@ -18,8 +18,8 @@ class Character : public Entity
 		enum Type
 		{
 			HelloKitty,
-			Apple,
-			Banana,
+			Mangosteen,
+			Watermelon,
 			PineappleBoss,
 			TypeCount
 		};

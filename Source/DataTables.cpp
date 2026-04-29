@@ -19,27 +19,27 @@ std::vector<CharacterData> initializeCharacterData()
 	data[Character::HelloKitty].textureRect = sf::IntRect(3, 4, 48, 52);
 	data[Character::HelloKitty].hasRollAnimation = true;
 
-	data[Character::Apple].hitpoints = 20;
-	data[Character::Apple].speed = 80.f;
-	data[Character::Apple].texture = Textures::Entities;
-	data[Character::Apple].textureRect = sf::IntRect(158, 4, 65, 54);
-	data[Character::Apple].directions.push_back(Direction(+45.f, 80.f));
-	data[Character::Apple].directions.push_back(Direction(-45.f, 160.f));
-	data[Character::Apple].directions.push_back(Direction(+45.f, 80.f));
-	data[Character::Apple].fireInterval = sf::Time::Zero;
-	data[Character::Apple].hasRollAnimation = false;
+	data[Character::Mangosteen].hitpoints = 20;
+	data[Character::Mangosteen].speed = 80.f;
+	data[Character::Mangosteen].texture = Textures::Entities;
+	data[Character::Mangosteen].textureRect = sf::IntRect(158, 4, 65, 54);
+	data[Character::Mangosteen].directions.push_back(Direction(+45.f, 80.f));
+	data[Character::Mangosteen].directions.push_back(Direction(-45.f, 160.f));
+	data[Character::Mangosteen].directions.push_back(Direction(+45.f, 80.f));
+	data[Character::Mangosteen].fireInterval = sf::Time::Zero;
+	data[Character::Mangosteen].hasRollAnimation = false;
 
-	data[Character::Banana].hitpoints = 40;
-	data[Character::Banana].speed = 50.f;
-	data[Character::Banana].texture = Textures::Entities;
-	data[Character::Banana].textureRect = sf::IntRect(230, 4, 56, 52);
-	data[Character::Banana].directions.push_back(Direction(+45.f,  50.f));
-	data[Character::Banana].directions.push_back(Direction(  0.f,  50.f));
-	data[Character::Banana].directions.push_back(Direction(-45.f, 100.f));
-	data[Character::Banana].directions.push_back(Direction(  0.f,  50.f));
-	data[Character::Banana].directions.push_back(Direction(+45.f,  50.f));
-	data[Character::Banana].fireInterval = sf::seconds(2);
-	data[Character::Banana].hasRollAnimation = false;
+	data[Character::Watermelon].hitpoints = 40;
+	data[Character::Watermelon].speed = 50.f;
+	data[Character::Watermelon].texture = Textures::Entities;
+	data[Character::Watermelon].textureRect = sf::IntRect(230, 4, 56, 52);
+	data[Character::Watermelon].directions.push_back(Direction(+45.f,  50.f));
+	data[Character::Watermelon].directions.push_back(Direction(  0.f,  50.f));
+	data[Character::Watermelon].directions.push_back(Direction(-45.f, 100.f));
+	data[Character::Watermelon].directions.push_back(Direction(  0.f,  50.f));
+	data[Character::Watermelon].directions.push_back(Direction(+45.f,  50.f));
+	data[Character::Watermelon].fireInterval = sf::seconds(2);
+	data[Character::Watermelon].hasRollAnimation = false;
 
 	data[Character::PineappleBoss].hitpoints = 500;
 	data[Character::PineappleBoss].speed = 85.f;

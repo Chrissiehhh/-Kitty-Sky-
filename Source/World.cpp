@@ -375,61 +375,61 @@ void World::addFruits()
 
 	if (mDifficulty == State::Simple)
 	{
-		addFruit(Character::Apple,   -80.f,  520.f);
-		addFruit(Character::Banana,  130.f,  760.f);
-		addFruit(Character::Apple,  -220.f,  980.f);
-		addFruit(Character::Banana,   40.f, 1120.f);
-		addFruit(Character::Apple,   230.f, 1360.f);
-		addFruit(Character::Banana, -150.f, 1570.f);
-		addFruit(Character::Apple,   100.f, 1840.f);
-		addFruit(Character::Banana, -260.f, 2050.f);
-		addFruit(Character::Apple,   260.f, 2320.f);
-		addFruit(Character::Banana,  -20.f, 2560.f);
-		addFruit(Character::Apple,  -190.f, 2830.f);
-		addFruit(Character::Banana,  180.f, 3070.f);
-		addFruit(Character::Apple,    30.f, 3330.f);
-		addFruit(Character::Banana, -120.f, 3590.f);
-		addFruit(Character::Apple,   240.f, 3870.f);
-		addFruit(Character::Banana, -230.f, 4140.f);
+		addFruit(Character::Mangosteen,  -80.f,  520.f);
+		addFruit(Character::Watermelon,  130.f,  760.f);
+		addFruit(Character::Mangosteen, -220.f,  980.f);
+		addFruit(Character::Watermelon,   40.f, 1120.f);
+		addFruit(Character::Mangosteen,  230.f, 1360.f);
+		addFruit(Character::Watermelon, -150.f, 1570.f);
+		addFruit(Character::Mangosteen,  100.f, 1840.f);
+		addFruit(Character::Watermelon, -260.f, 2050.f);
+		addFruit(Character::Mangosteen,  260.f, 2320.f);
+		addFruit(Character::Watermelon,  -20.f, 2560.f);
+		addFruit(Character::Mangosteen, -190.f, 2830.f);
+		addFruit(Character::Watermelon,  180.f, 3070.f);
+		addFruit(Character::Mangosteen,   30.f, 3330.f);
+		addFruit(Character::Watermelon, -120.f, 3590.f);
+		addFruit(Character::Mangosteen,  240.f, 3870.f);
+		addFruit(Character::Watermelon, -230.f, 4140.f);
 		addWave(Character::PineappleBoss, 4550.f, { 0.f });
 	}
 	else
 	{
 		// Hard mode ramps up over time: lighter mixed entries first, denser crossfire later.
-		addFruit(Character::Apple,     0.f,  500.f);
-		addFruit(Character::Banana, -140.f,  760.f);
-		addFruit(Character::Apple,   160.f,  930.f);
-		addFruit(Character::Apple,  -220.f, 1140.f);
-		addFruit(Character::Banana,   60.f, 1280.f);
-		addFruit(Character::Apple,   240.f, 1460.f);
+		addFruit(Character::Mangosteen,    0.f,  500.f);
+		addFruit(Character::Watermelon, -140.f,  760.f);
+		addFruit(Character::Mangosteen,  160.f,  930.f);
+		addFruit(Character::Mangosteen, -220.f, 1140.f);
+		addFruit(Character::Watermelon,   60.f, 1280.f);
+		addFruit(Character::Mangosteen,  240.f, 1460.f);
 
-		addFruit(Character::Banana, -260.f, 1680.f);
-		addFruit(Character::Apple,   -20.f, 1810.f);
-		addFruit(Character::Banana,  210.f, 1940.f);
-		addFruit(Character::Apple,  -170.f, 2140.f);
-		addFruit(Character::Banana,   90.f, 2260.f);
-		addFruit(Character::Apple,   280.f, 2390.f);
-		addFruit(Character::Banana, -300.f, 2520.f);
+		addFruit(Character::Watermelon, -260.f, 1680.f);
+		addFruit(Character::Mangosteen,  -20.f, 1810.f);
+		addFruit(Character::Watermelon,  210.f, 1940.f);
+		addFruit(Character::Mangosteen, -170.f, 2140.f);
+		addFruit(Character::Watermelon,   90.f, 2260.f);
+		addFruit(Character::Mangosteen,  280.f, 2390.f);
+		addFruit(Character::Watermelon, -300.f, 2520.f);
 
-		addFruit(Character::Apple,  -240.f, 2740.f);
-		addFruit(Character::Banana,  -40.f, 2810.f);
-		addFruit(Character::Apple,   180.f, 2890.f);
-		addFruit(Character::Banana,  310.f, 3010.f);
-		addFruit(Character::Apple,  -120.f, 3140.f);
-		addFruit(Character::Banana,  110.f, 3230.f);
-		addFruit(Character::Apple,  -300.f, 3360.f);
-		addFruit(Character::Banana,   10.f, 3440.f);
+		addFruit(Character::Mangosteen, -240.f, 2740.f);
+		addFruit(Character::Watermelon,  -40.f, 2810.f);
+		addFruit(Character::Mangosteen,  180.f, 2890.f);
+		addFruit(Character::Watermelon,  310.f, 3010.f);
+		addFruit(Character::Mangosteen, -120.f, 3140.f);
+		addFruit(Character::Watermelon,  110.f, 3230.f);
+		addFruit(Character::Mangosteen, -300.f, 3360.f);
+		addFruit(Character::Watermelon,   10.f, 3440.f);
 
-		addFruit(Character::Apple,   260.f, 3600.f);
-		addFruit(Character::Banana, -210.f, 3660.f);
-		addFruit(Character::Apple,    40.f, 3730.f);
-		addFruit(Character::Banana,  300.f, 3810.f);
-		addFruit(Character::Apple,  -320.f, 3890.f);
-		addFruit(Character::Banana, -100.f, 3970.f);
-		addFruit(Character::Apple,   140.f, 4040.f);
-		addFruit(Character::Banana,  -30.f, 4120.f);
-		addFruit(Character::Apple,   230.f, 4200.f);
-		addFruit(Character::Banana, -260.f, 4280.f);
+		addFruit(Character::Mangosteen,  260.f, 3600.f);
+		addFruit(Character::Watermelon, -210.f, 3660.f);
+		addFruit(Character::Mangosteen,   40.f, 3730.f);
+		addFruit(Character::Watermelon,  300.f, 3810.f);
+		addFruit(Character::Mangosteen, -320.f, 3890.f);
+		addFruit(Character::Watermelon, -100.f, 3970.f);
+		addFruit(Character::Mangosteen,  140.f, 4040.f);
+		addFruit(Character::Watermelon,  -30.f, 4120.f);
+		addFruit(Character::Mangosteen,  230.f, 4200.f);
+		addFruit(Character::Watermelon, -260.f, 4280.f);
 		addWave(Character::PineappleBoss, 4700.f, { -220.f, 220.f });
 	}
 
