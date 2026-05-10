@@ -6,8 +6,8 @@ Kitty Sky 是一款基于 SFML 和 CMake 开发的纵向卷轴动作射击游戏
 The player controls Hello Kitty through a scrolling battlefield, fights fruit enemies, collects pickups, and uses bullets, guided missiles, and bombs to clear the stage.
 玩家操控 Hello Kitty 在滚动战场中前进，对抗水果敌人，收集补给，并使用子弹、导弹和炸弹通关。
 
-The project also includes title, menu, settings, pause, and game-over states, along with custom cute audio and bloom effects.
-项目还包含标题、菜单、设置、暂停和游戏结束界面，并配有自定义的可爱风格音频和 bloom 特效。
+The project also includes title, menu, settings, pause, and game-over states.
+项目还包含标题、菜单、设置、暂停和游戏结束界面。
 
 `SFMLDemo-summary.pdf` contains a short project summary.
 `SFMLDemo-summary.pdf` 是项目的简要说明文档。
@@ -140,29 +140,3 @@ Player 1:
 - 导弹和即时生效的炸弹
 - Pineapple boss battle at the end of the stage
 - 关卡末尾的菠萝 Boss 战
-- Custom cute / princess-style music and sound effects
-- 自定义可爱 / 公主风音乐和音效
-- Bloom and sound effects
-- Bloom 与音效效果
-
-## Audio / 音频
-
-The current build uses custom generated audio files in:
-当前版本使用的自定义音频文件位于：
-
-- `Media/Music/CuteMenuTheme.wav`
-- `Media/Music/CuteMissionTheme.wav`
-- `Media/Sound/CuteAlliedGunfire.wav`
-- `Media/Sound/CuteEnemyGunfire.wav`
-- `Media/Sound/CuteExplosion1.wav`
-- `Media/Sound/CuteExplosion2.wav`
-- `Media/Sound/CuteLaunch.wav`
-- `Media/Sound/CuteCollectPickup.wav`
-- `Media/Sound/CuteButton.wav`
-
-If you want to regenerate the current audio set:
-如果你想重新生成当前音频素材：
-
-```powershell
-C:\Users\65151\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe tools/generate_cute_audio.py
-```
