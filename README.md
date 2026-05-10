@@ -10,9 +10,10 @@ The player controls Hello Kitty through a scrolling battlefield, fights fruit en
 
 The current experiment report is available here:
 
-- [Download the report](./高级程序设计实验报告（1）.docx)
+- [PDF version](./高级程序设计实验报告（1）.pdf)
+- [Word version](./高级程序设计实验报告（1）.docx)
 
-GitHub usually lets visitors download the `.docx` file, but it does not reliably render Word documents directly in the browser. If you want inline preview later, a PDF version is the safest choice.
+GitHub can preview the PDF directly in the browser, while the `.docx` file is kept for download.
 
 ## Current Gameplay
 
