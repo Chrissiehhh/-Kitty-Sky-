@@ -126,18 +126,6 @@ Player 1:
 - Esc: pause
 - Esc：暂停
 
-Player 2 bindings available in Settings:
-设置中可用的玩家 2 键位：
-
-- W/A/S/D: move
-- W/A/S/D：移动
-- F: fire
-- F：射击
-- R: launch missile
-- R：发射导弹
-- G: launch bomb
-- G：发射炸弹
-
 ## Features / 特性
 
 - Title screen, menu, settings, pause, and game-over states
